@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -24,6 +25,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     TextView Status,MessageRe,DtTm;
     EditText MsgSend,TimeSend,AM_PM;
     int mYear, mDay, mMonth;
+    int Hour, Minute, Seconds;
     ImageView GetCalendar,GetTime;
     String mm_precede = "", hr_precede="", sec_precede="";
     BluetoothDevice[] btArray;
@@ -125,9 +128,9 @@ public class MainActivity extends AppCompatActivity {
                     sec_precede = "";
                 }
                 String Time = hr_precede + mHour + ":" + mm_precede + mMinute + ":" + sec_precede + mSeconds;
-//                TimeSend.setText(Time);
-//                AM_PM.setText(AMPM);
-//                DtTm.setText(curr_date + " " + Time + AMPM);
+                TimeSend.setText(Time);
+                AM_PM.setText(AMPM);
+                DtTm.setText(curr_date + " " + Time + AMPM);
                 someHandler.postDelayed(this,1000);
             }
         },10);
@@ -259,6 +262,9 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute, int seconds) {
                         AMPM = " AM";
+                        Hour = hourOfDay;
+                        Minute = minute;
+                        Seconds = seconds;
                         if (hourOfDay >= 12){
                             AMPM = " PM";
                             if (hourOfDay >= 13 && hourOfDay < 24){
